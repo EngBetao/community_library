@@ -1,14 +1,14 @@
 import express from 'express';
-import userRouter from './src/routes/user.routs.js';
-import { user } from 'react';
+// A CORREÇÃO ESTÁ AQUI: Note o ".js" no final e a escrita "routs" igual ao seu arquivo
+import router from './routes/user.routs.js'; 
+
 const app = express();
 
+app.use(express.json());
 
-// --- NOVIDADE 1: Essa linha permite que o servidor entenda JSON enviado pelo usuário ---
-app.use(express.json()); 
+app.use(router);
 
-app.use(userRouters)
-
-app.listen(3000, () => {
-    console.log(`Servidor rodando na porta 3000`);
+const PORT = 3000; // Ou a porta que preferir
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
