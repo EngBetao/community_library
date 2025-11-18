@@ -1,4 +1,4 @@
-import userService from '../services/user.service.js';
+import userService from '../service/user.services.js';
 
 async function createUserController(req, res) {
     try {

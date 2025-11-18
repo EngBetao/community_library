@@ -1,6 +1,6 @@
 import express from 'express';
 // A CORREÇÃO ESTÁ AQUI: Note o ".js" no final e a escrita "routs" igual ao seu arquivo
-import router from './routes/user.routs.js'; 
+import router from "./src/routes/user.routs.js"; 
 
 const app = express();
 

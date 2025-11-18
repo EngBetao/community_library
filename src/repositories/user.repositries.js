@@ -16,16 +16,15 @@ function createUserRepository(newUser) {
     return new Promise((resolve, reject) => {
      const {username, email, password, avatar} = newUser;
          db.run(
-             `
-            INSERT INTO users (username, email, password, avatar)
+              ` INSERT INTO users (username, email, password, avatar)
                 VALUES (?, ?, ?, ?)
-             ` 
+             `, 
             [username, email, password, avatar], 
             (err) => {
               if (err) {
                reject(err);
               } else {
-                resolve({id:this.lastID,...newUser})
+                resolve({id:this.lastID})
               } 
              }       
             );
@@ -34,4 +33,4 @@ function createUserRepository(newUser) {
 
 
     export default {
-        createUserRepository}
+        createUserRepository};

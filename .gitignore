@@ -1,1 +1,5 @@
 /node_modules/
+# Ignorar bancos de dados locais
+*.sqlite
+*.sqlite3
+*.db
