@@ -1,7 +1,4 @@
-import { Router } from "express";fix: 
-
-import userControllers from "../controller/user.controllers";
-
+import userControllers from "../controller/user.controllers.js";
 const router = Router();
 
 router.post('/users', userControllers.createUserController
