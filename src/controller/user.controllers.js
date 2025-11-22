@@ -24,14 +24,11 @@ async function findAllUsers(req, res) {
   }
 }
 
-// --- NOVA FUNÇÃO: DELETAR ---
+// --- A FUNÇÃO DELETAR ---
 async function deleteUser(req, res) {
   try {
-    // Pega o id que vem na url (ex: /users/1)
-    const id = req.params.id; 
-    
+    const id = req.params.id; // Pega o ID da URL
     await userRepository.deleteUserRepository(id);
-    
     return res.status(200).json({ message: "Usuário deletado com sucesso!" });
   } catch (error) {
     console.error(error);
@@ -42,5 +39,5 @@ async function deleteUser(req, res) {
 export default {
   createUser,
   findAllUsers,
-  deleteUser, // <--- Exportando a nova função
+  deleteUser, // <--- O segredo: exportando a função para a rota usar
 };
