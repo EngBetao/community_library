@@ -1,10 +1,13 @@
 import { Router } from "express";
-// Importamos o Controller que acabamos de criar
 import userController from "../controller/user.controllers.js";
 
 const userRouter = Router();
 
-// Quando alguém enviar um POST na raiz (/), chamamos o controller
+// Rota POST para CRIAR (Já existia)
 userRouter.post("/", userController.createUser);
+
+// NOVA Rota GET para LISTAR
+// Quando alguém acessar /users sem mandar dados, mostramos a lista
+userRouter.get("/", userController.findAllUsers);
 
 export default userRouter;
