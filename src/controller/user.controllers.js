@@ -1,6 +1,5 @@
 import userRepository from "../repositories/user.repositories.js";
 
-// Função de Criar (Mantemos igual)
 async function createUser(req, res) {
   try {
     const newUser = req.body;
@@ -15,7 +14,6 @@ async function createUser(req, res) {
   }
 }
 
-// NOVA FUNÇÃO: Listar Usuários
 async function findAllUsers(req, res) {
   try {
     const users = await userRepository.findAllUsersRepository();
@@ -26,7 +24,23 @@ async function findAllUsers(req, res) {
   }
 }
 
+// --- NOVA FUNÇÃO: DELETAR ---
+async function deleteUser(req, res) {
+  try {
+    // Pega o id que vem na url (ex: /users/1)
+    const id = req.params.id; 
+    
+    await userRepository.deleteUserRepository(id);
+    
+    return res.status(200).json({ message: "Usuário deletado com sucesso!" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
+  }
+}
+
 export default {
   createUser,
-  findAllUsers, // Exportamos a nova função
+  findAllUsers,
+  deleteUser, // <--- Exportando a nova função
 };

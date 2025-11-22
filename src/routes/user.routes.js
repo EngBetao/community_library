@@ -3,11 +3,12 @@ import userController from "../controller/user.controllers.js";
 
 const userRouter = Router();
 
-// Rota POST para CRIAR (Já existia)
 userRouter.post("/", userController.createUser);
-
-// NOVA Rota GET para LISTAR
-// Quando alguém acessar /users sem mandar dados, mostramos a lista
 userRouter.get("/", userController.findAllUsers);
+
+// NOVA ROTA DELETE
+// O ":id" indica que o que vier depois da barra é uma variável
+// Ex: /users/1, /users/50
+userRouter.delete("/:id", userController.deleteUser);
 
 export default userRouter;

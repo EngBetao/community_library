@@ -1,6 +1,6 @@
 import db from "../config/database.js";
 
-// Criação da tabela (Mantemos igual)
+// Criação da tabela (Igual)
 db.run(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,17 +31,27 @@ function createUserRepository(newUser) {
   });
 }
 
-// NOVA FUNÇÃO: Buscar todos os usuários
 function findAllUsersRepository() {
   return new Promise((resolve, reject) => {
     db.all(`SELECT id, username, email, avatar FROM users`, [], (err, rows) => {
       if (err) return reject(err);
-      resolve(rows); // Devolve todas as linhas encontradas
+      resolve(rows);
+    });
+  });
+}
+
+// --- NOVA FUNÇÃO: DELETAR ---
+function deleteUserRepository(id) {
+  return new Promise((resolve, reject) => {
+    db.run(`DELETE FROM users WHERE id = ?`, [id], (err) => {
+      if (err) return reject(err);
+      resolve({ message: "Usuário deletado com sucesso" });
     });
   });
 }
 
 export default {
   createUserRepository,
-  findAllUsersRepository, // Exportamos a função nova
+  findAllUsersRepository,
+  deleteUserRepository, // <--- Adicionamos aqui na exportação
 };
