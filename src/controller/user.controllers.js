@@ -4,10 +4,7 @@ async function createUser(req, res) {
   try {
     const newUser = req.body;
     const userCreated = await userRepository.createUserRepository(newUser);
-    return res.status(201).json({
-      message: "Usuário criado com sucesso!",
-      user: userCreated
-    });
+    return res.status(201).json({ message: "Criado!", user: userCreated });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });
@@ -24,12 +21,24 @@ async function findAllUsers(req, res) {
   }
 }
 
-// --- A FUNÇÃO DELETAR ---
 async function deleteUser(req, res) {
   try {
-    const id = req.params.id; // Pega o ID da URL
+    const id = req.params.id;
     await userRepository.deleteUserRepository(id);
     return res.status(200).json({ message: "Usuário deletado com sucesso!" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+// --- A NOVIDADE ESTÁ AQUI ---
+async function updateUser(req, res) {
+  try {
+    const id = req.params.id;
+    const userUpdated = req.body;
+    const user = await userRepository.updateUserRepository(id, userUpdated);
+    return res.status(200).json({ message: "Usuário atualizado com sucesso!", user: user });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error.message });
@@ -39,5 +48,6 @@ async function deleteUser(req, res) {
 export default {
   createUser,
   findAllUsers,
-  deleteUser, // <--- O segredo: exportando a função para a rota usar
+  deleteUser,
+  updateUser, // <--- Exportando
 };

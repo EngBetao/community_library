@@ -1,6 +1,5 @@
 import db from "../config/database.js";
 
-// Criação da tabela (Igual)
 db.run(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -10,11 +9,8 @@ db.run(`
     avatar TEXT
   )
 `, (err) => {
-  if (err) {
-    console.error("Erro na criação da tabela users:", err.message);
-  } else {
-    console.log("Tabela 'users' verificada/criada com sucesso.");
-  }
+  if (err) console.error("Erro na criação da tabela:", err.message);
+  else console.log("Tabela 'users' verificada/criada com sucesso.");
 });
 
 function createUserRepository(newUser) {
@@ -40,7 +36,6 @@ function findAllUsersRepository() {
   });
 }
 
-// --- NOVA FUNÇÃO: DELETAR ---
 function deleteUserRepository(id) {
   return new Promise((resolve, reject) => {
     db.run(`DELETE FROM users WHERE id = ?`, [id], (err) => {
@@ -50,8 +45,24 @@ function deleteUserRepository(id) {
   });
 }
 
+// --- A NOVIDADE ESTÁ AQUI ---
+function updateUserRepository(id, userUpdated) {
+  return new Promise((resolve, reject) => {
+    const { username, email, password, avatar } = userUpdated;
+    db.run(
+      `UPDATE users SET username = ?, email = ?, password = ?, avatar = ? WHERE id = ?`,
+      [username, email, password, avatar, id],
+      (err) => {
+        if (err) return reject(err);
+        resolve({ id, ...userUpdated });
+      }
+    );
+  });
+}
+
 export default {
   createUserRepository,
   findAllUsersRepository,
-  deleteUserRepository, // <--- Adicionamos aqui na exportação
+  deleteUserRepository,
+  updateUserRepository, // <--- Não esqueça que exportamos ela aqui
 };

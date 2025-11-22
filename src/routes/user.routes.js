@@ -5,10 +5,9 @@ const userRouter = Router();
 
 userRouter.post("/", userController.createUser);
 userRouter.get("/", userController.findAllUsers);
-
-// NOVA ROTA DELETE
-// O ":id" indica que o que vier depois da barra é uma variável
-// Ex: /users/1, /users/50
 userRouter.delete("/:id", userController.deleteUser);
+
+// --- A NOVIDADE ESTÁ AQUI ---
+userRouter.put("/:id", userController.updateUser);
 
 export default userRouter;
